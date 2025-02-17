@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"id": "crossfabric",
+	"version": "${version}",
+	"name": "Crossfabric",
+	"description": "Crossfabric is a library that mods can use to integrate multiversion easily!",
+	"authors": [
+		"xNasuni"
+	],
+	"contributors": [
+	],
+	"contact": {
+		"homepage": "https://github.com/xNasuni/Crossfabric/wiki",
+		"sources": "https://github.com/xNasuni/Crossfabric",
+		"issues": "https://github.com/xNasuni/Crossfabric/issues"
+	},
+	"license": "BSD 3 Clause",
+	"icon": "assets/crossfabric/icon.png",
+	"environment": "*",
+	"entrypoints": {
+	},
+	"mixins": [
+	],
+	"depends": {
+		"fabricloader": ">=0.11.0",
+		"minecraft": ">=1.16.5",
+		"java": ">=7"
+	},
+	"suggests": {
+	},
+	"custom": {
+		"modmenu": {
+			"badges": ["library"]
+		}
+	}
+}
