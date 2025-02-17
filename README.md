@@ -1,5 +1,5 @@
 # Crossfabric
-<img src="https://github.com/user-attachments/assets/e29e18a7-cf85-4b2f-987c-9ff201752ad0" align="right">
+<img src="/assets/logo.png" align="right">
 
 Crossfabric is a library that mods can use to integrate multiversion easily!
 
