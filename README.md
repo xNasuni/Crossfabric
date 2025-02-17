@@ -1,5 +1,5 @@
 # Crossfabric
-<img src="/assets/logo.png" align="right">
+<img src="/assets/logo.png" align="right" width="180px">
 
 Crossfabric is a library that mods can use to integrate multiversion easily!
 
