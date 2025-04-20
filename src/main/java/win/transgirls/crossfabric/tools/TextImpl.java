@@ -36,23 +36,22 @@ public class TextImpl {
     }
     public static Text of(String text) {
         try {
-            Class<?> textClass = ClassUtils.forName("net.minecraft.class_8828", "net.minecraft.text.PlainTextContent");
+            Class<?> textClass = ClassUtils.forName("net.minecraft.class_2561", "net.minecraft.text.Text");
             Class<?> mutableTextClass = ClassUtils.forName("net.minecraft.class_5250", "net.minecraft.text.MutableText");
             MethodType methodType = MethodType.methodType(mutableTextClass, String.class);
-            MethodHandle literalMethod = ClassUtils.firstMethodOfName(textClass, methodType, "method_43470", "literal");
+            MethodHandle literalMethod = ClassUtils.firstStaticMethodOfName(textClass, methodType, "method_43470", "literal");
             return (Text) Objects.requireNonNull(literalMethod.invoke(text));
         } catch (Throwable e) {
             try {
                 Class<?> textClass = ClassUtils.forName("net.minecraft.class_2561", "net.minecraft.text.Text");
                 MethodType methodType = MethodType.methodType(textClass, String.class);
-                MethodHandle ofMethod = ClassUtils.firstMethodOfName(textClass, methodType, "method_30163", "of");
+                MethodHandle ofMethod = ClassUtils.firstStaticMethodOfName(textClass, methodType, "method_30163", "of");
                 return (Text) Objects.requireNonNull(ofMethod.invoke(text));
             } catch (Throwable e2) {
                 try {
-                    Class<?> literalTextClass = ClassUtils.forName("net.minecraft.class_2585", "net.minecraft.text.LiteralText");
-                    Constructor<?> literalTextCtor = literalTextClass.getConstructor(String.class);
-
-                    return (Text) Objects.requireNonNull(literalTextCtor.newInstance(text));
+                    Class<?> literalTextClass = ClassUtils.forName("net.minecraft.class_8828$class_2585", "net.minecraft.text.LiteralText");
+                    Constructor<?> ctor = literalTextClass.getConstructor(String.class);
+                    return (Text) Objects.requireNonNull(ctor.newInstance(text));
                 } catch (Throwable e3) {
                     LOGGER.error("Couldn't create literal text for {}", text, e3);
                 }
