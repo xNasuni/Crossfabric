@@ -1,8 +1,8 @@
-package dev.xnasuni.crossfabric.multiversion;
+package win.transgirls.crossfabric.multiversion;
 
-import dev.xnasuni.crossfabric.Constants;
-import dev.xnasuni.crossfabric.annotation.VersionedMixin;
-import dev.xnasuni.crossfabric.tools.ClassUtils;
+import win.transgirls.crossfabric.Constants;
+import win.transgirls.crossfabric.annotation.VersionedMixin;
+import win.transgirls.crossfabric.tools.ClassUtils;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import org.spongepowered.asm.service.MixinService;
 import org.spongepowered.asm.util.Annotations;
 
-import static dev.xnasuni.crossfabric.Constants.LOGGER;
+import static win.transgirls.crossfabric.Constants.LOGGER;
 
 public class VersionedMixinPluginImpl implements IMixinConfigPlugin {
     @Override public boolean shouldApplyMixin(String className, String mixinClass) {

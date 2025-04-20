@@ -1,9 +1,7 @@
-package dev.xnasuni.crossfabric.multiversion;
+package win.transgirls.crossfabric.multiversion;
 
-import dev.xnasuni.crossfabric.tools.TextImpl;
-import net.minecraft.text.StringVisitable;
+import win.transgirls.crossfabric.tools.TextImpl;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 
 public class VersionedText {
     public static Text of(String text) {

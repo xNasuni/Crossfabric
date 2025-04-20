@@ -6,7 +6,7 @@ plugins {
 apply plugin: 'fabric-loom'
 apply plugin: 'maven-publish'
 
-archivesBaseName = "${rootProject.name}-${mod_version}"
+archivesBaseName = "crossfabric-${mod_version}"
 
 repositories {
 	maven {

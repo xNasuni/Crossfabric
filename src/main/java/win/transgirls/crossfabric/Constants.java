@@ -1,4 +1,4 @@
-package dev.xnasuni.crossfabric;
+package win.transgirls.crossfabric;
 
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.LogManager;

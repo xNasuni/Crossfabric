@@ -1,4 +1,4 @@
-package dev.xnasuni.crossfabric.tools;
+package win.transgirls.crossfabric.tools;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;

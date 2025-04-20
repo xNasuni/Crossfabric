@@ -1,4 +1,4 @@
-package dev.xnasuni.crossfabric.multiversion;
+package win.transgirls.crossfabric.multiversion;
 // OMG someone please help me with javadoc if anyone ever uses this I hope they like don't have a hard time understanding it
 
 public class VersionString {

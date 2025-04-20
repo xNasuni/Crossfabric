@@ -1,7 +1,7 @@
-package dev.xnasuni.crossfabric.multiversion;
+package win.transgirls.crossfabric.multiversion;
 
 import com.mojang.brigadier.CommandDispatcher;
-import dev.xnasuni.crossfabric.Constants;
+import win.transgirls.crossfabric.Constants;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
@@ -9,7 +9,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.function.Consumer;
-import static dev.xnasuni.crossfabric.Constants.LOGGER;
+import static win.transgirls.crossfabric.Constants.LOGGER;
 
 public class ClientCommandManager {
     private static final MethodHandles.Lookup lookup = MethodHandles.lookup();
