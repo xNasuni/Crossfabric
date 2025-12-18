@@ -21,7 +21,7 @@ public class ClassUtils {
         throw new RuntimeException(String.format("ClassUtils.forName() did not find any class in list [%s]", ClassUtils.joinSeparator(classNames)));
     }
 
-    public static MethodHandle firstMethodOfName(Class<?> rootClass, MethodType descriptor, String... methodNames) {
+    public static MethodHandle firstVirtualOfName(Class<?> rootClass, MethodType descriptor, String... methodNames) {
         for (String methodName : methodNames) {
             try {
                 return lookup.findVirtual(rootClass, methodName, descriptor);
@@ -29,7 +29,18 @@ public class ClassUtils {
             }
         }
 
-        throw new RuntimeException(String.format("ClassUtils.firstMethodOfName() did not find any methods from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(methodNames)));
+        throw new RuntimeException(String.format("ClassUtils.firstVirtualOfName() did not find any methods from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(methodNames)));
+    }
+
+    public static MethodHandle firstSpecialOfName(Class<?> rootClass, MethodType descriptor, Class<?> special, String... methodNames) {
+        for (String methodName : methodNames) {
+            try {
+                return lookup.findSpecial(rootClass, methodName, descriptor, special);
+            } catch (Throwable ignored){
+            }
+        }
+
+        throw new RuntimeException(String.format("ClassUtils.firstSpecialOfName() did not find any methods from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(methodNames)));
     }
 
     public static MethodHandle firstStaticMethodOfName(Class<?> rootClass, MethodType descriptor, String... methodNames) {
