@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ClassUtils {
-    private static final MethodHandles.Lookup lookup = MethodHandles.lookup();
+    public static final MethodHandles.Lookup lookup = MethodHandles.lookup();
 
     public static Class<?> forName(String... classNames) {
         for (String className : classNames) {
