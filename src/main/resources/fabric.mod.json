@@ -14,7 +14,7 @@
 		"sources": "https://github.com/xNasuni/Crossfabric",
 		"issues": "https://github.com/xNasuni/Crossfabric/issues"
 	},
-	"license": "BSD 3 Clause",
+	"license": "MIT",
 	"icon": "assets/crossfabric/icon.png",
 	"environment": "*",
 	"entrypoints": {
