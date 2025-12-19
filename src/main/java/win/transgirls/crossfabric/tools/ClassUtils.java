@@ -15,7 +15,7 @@ public class ClassUtils {
         for (String className : classNames) {
             try {
                 return Class.forName(className);
-            } catch (Throwable ignored){
+            } catch (ClassNotFoundException ignored){
             }
         }
 
@@ -26,7 +26,7 @@ public class ClassUtils {
         for (String methodName : methodNames) {
             try {
                 return lookup.findVirtual(rootClass, methodName, descriptor);
-            } catch (Throwable ignored){
+            } catch (NoSuchMethodException | IllegalAccessException ignored){
             }
         }
 
@@ -37,7 +37,7 @@ public class ClassUtils {
         for (String methodName : methodNames) {
             try {
                 return lookup.findSpecial(rootClass, methodName, descriptor, special);
-            } catch (Throwable ignored){
+            } catch (NoSuchMethodException | IllegalAccessException ignored){
             }
         }
 
@@ -48,7 +48,7 @@ public class ClassUtils {
         for (String methodName : methodNames) {
             try {
                 return lookup.findStatic(rootClass, methodName, descriptor);
-            } catch (Throwable ignored){
+            } catch (NoSuchMethodException | IllegalAccessException ignored){
             }
         }
 
@@ -61,11 +61,24 @@ public class ClassUtils {
                 Field field = rootClass.getDeclaredField(fieldName);
                 field.setAccessible(true);
                 return field;
-            } catch (Throwable ignored) {
+            } catch (NoSuchFieldException ignored) {
             }
         }
 
         throw new RuntimeException(String.format("ClassUtils.firstDeclaredFieldWithName() did not find any fields from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(fieldNames)));
+    }
+
+    public static Field firstFieldWithName(Class<?> rootClass, String... fieldNames) {
+        for (String fieldName : fieldNames) {
+            try {
+                Field field = rootClass.getField(fieldName);
+                field.setAccessible(true);
+                return field;
+            } catch (NoSuchFieldException ignored) {
+            }
+        }
+
+        throw new RuntimeException(String.format("ClassUtils.firstFieldWithName() did not find any fields from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(fieldNames)));
     }
 
     public static MethodHandle unreflectFirstDeclaredMethodWithName(MethodHandles.Lookup caller, Class<?> rootClass, Class<?> special, List<String> methodNames, Class<?>... paramTypes) {
@@ -74,7 +87,7 @@ public class ClassUtils {
         for (String methodName : methodNames) {
             try {
                 method = rootClass.getDeclaredMethod(methodName, paramTypes);
-            } catch (Throwable ignored){
+            } catch (NoSuchMethodException ignored){
             }
         }
 
