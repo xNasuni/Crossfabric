@@ -54,7 +54,7 @@ public class ClassUtils {
         throw new RuntimeException(String.format("ClassUtils.firstMethodOfName() did not find any methods from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(methodNames)));
     }
 
-    public static Field firstDeclaredFieldOfName(Class<?> rootClass, String... fieldNames) {
+    public static Field firstDeclaredFieldWithName(Class<?> rootClass, String... fieldNames) {
         for (String fieldName : fieldNames) {
             try {
                 Field field = rootClass.getDeclaredField(fieldName);
@@ -65,6 +65,17 @@ public class ClassUtils {
         }
 
         throw new RuntimeException(String.format("ClassUtils.firstFieldOfName() did not find any fields from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(fieldNames)));
+    }
+
+    public static MethodHandle firstDeclaredMethodWithName(Class<?> rootClass, MethodType descriptor, Class<?> special, String... methodNames) {
+        for (String methodName : methodNames) {
+            try {
+                return lookup.findSpecial(rootClass, methodName, descriptor, special);
+            } catch (Throwable ignored){
+            }
+        }
+
+        throw new RuntimeException(String.format("ClassUtils.firstSpecialOfName() did not find any methods from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(methodNames)));
     }
 
     public static String joinSeparator(List<?> list) {
