@@ -4,6 +4,7 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class ClassUtils {
             }
         }
 
-        throw new RuntimeException(String.format("ClassUtils.firstMethodOfName() did not find any methods from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(methodNames)));
+        throw new RuntimeException(String.format("ClassUtils.firstStaticMethodOfName() did not find any methods from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(methodNames)));
     }
 
     public static Field firstDeclaredFieldWithName(Class<?> rootClass, String... fieldNames) {
@@ -64,18 +65,29 @@ public class ClassUtils {
             }
         }
 
-        throw new RuntimeException(String.format("ClassUtils.firstFieldOfName() did not find any fields from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(fieldNames)));
+        throw new RuntimeException(String.format("ClassUtils.firstDeclaredFieldWithName() did not find any fields from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(fieldNames)));
     }
 
-    public static MethodHandle firstDeclaredMethodWithName(Class<?> rootClass, MethodType descriptor, Class<?> special, String... methodNames) {
+    public static MethodHandle unreflectFirstDeclaredMethodWithName(MethodHandles.Lookup caller, Class<?> rootClass, Class<?> special, List<String> methodNames, Class<?>... paramTypes) {
+        Method method = null;
+
         for (String methodName : methodNames) {
             try {
-                return lookup.findSpecial(rootClass, methodName, descriptor, special);
+                method = rootClass.getDeclaredMethod(methodName, paramTypes);
             } catch (Throwable ignored){
             }
         }
 
-        throw new RuntimeException(String.format("ClassUtils.firstSpecialOfName() did not find any methods from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(methodNames)));
+        if (method == null) {
+            throw new RuntimeException(String.format("ClassUtils.unreflectFirstDeclaredMethodWithName() did not find any methods from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(methodNames)));
+        }
+
+        try {
+            method.setAccessible(true);
+            return caller.unreflectSpecial(method, special);
+        } catch (Throwable e) {
+            throw new RuntimeException(String.format("ClassUtils.unreflectFirstDeclaredMethodWithName() could not unreflect method: %s", e));
+        }
     }
 
     public static String joinSeparator(List<?> list) {
