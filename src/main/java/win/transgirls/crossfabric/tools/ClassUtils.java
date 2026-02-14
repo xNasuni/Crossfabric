@@ -15,7 +15,7 @@ public class ClassUtils {
         for (String className : classNames) {
             try {
                 return Class.forName(className);
-            } catch (ClassNotFoundException ignored){
+            } catch (ClassNotFoundException ignored) {
             }
         }
 
@@ -26,7 +26,7 @@ public class ClassUtils {
         for (String methodName : methodNames) {
             try {
                 return lookup.findVirtual(rootClass, methodName, descriptor);
-            } catch (NoSuchMethodException | IllegalAccessException ignored){
+            } catch (NoSuchMethodException | IllegalAccessException ignored) {
             }
         }
 
@@ -37,7 +37,7 @@ public class ClassUtils {
         for (String methodName : methodNames) {
             try {
                 return lookup.findSpecial(rootClass, methodName, descriptor, special);
-            } catch (NoSuchMethodException | IllegalAccessException ignored){
+            } catch (NoSuchMethodException | IllegalAccessException ignored) {
             }
         }
 
@@ -48,7 +48,7 @@ public class ClassUtils {
         for (String methodName : methodNames) {
             try {
                 return lookup.findStatic(rootClass, methodName, descriptor);
-            } catch (NoSuchMethodException | IllegalAccessException ignored){
+            } catch (NoSuchMethodException | IllegalAccessException ignored) {
             }
         }
 
@@ -81,19 +81,19 @@ public class ClassUtils {
         throw new RuntimeException(String.format("ClassUtils.firstFieldWithName() did not find any fields from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(fieldNames)));
     }
 
-    public static MethodHandle unreflectFirstDeclaredMethodWithName(MethodHandles.Lookup caller, Class<?> rootClass, Class<?> special, List<String> methodNames, Class<?>... paramTypes) {
-        Method method = null;
-
+    public static Method firstDeclaredMethodWithName(Class<?> rootClass, List<String> methodNames, Class<?>... paramTypes) {
         for (String methodName : methodNames) {
             try {
-                method = rootClass.getDeclaredMethod(methodName, paramTypes);
-            } catch (NoSuchMethodException ignored){
+                return rootClass.getDeclaredMethod(methodName, paramTypes);
+            } catch (NoSuchMethodException ignored) {
             }
         }
 
-        if (method == null) {
-            throw new RuntimeException(String.format("ClassUtils.unreflectFirstDeclaredMethodWithName() did not find any methods from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(methodNames)));
-        }
+        throw new RuntimeException(String.format("ClassUtils.firstDeclaredMethodWithName() did not find any methods from class %s in list [%s]", rootClass.getName(), ClassUtils.joinSeparator(methodNames)));
+    }
+
+    public static MethodHandle unreflectFirstDeclaredMethodWithName(MethodHandles.Lookup caller, Class<?> rootClass, Class<?> special, List<String> methodNames, Class<?>... paramTypes) {
+        Method method = firstDeclaredMethodWithName(rootClass, methodNames, paramTypes);
 
         try {
             method.setAccessible(true);
@@ -114,7 +114,7 @@ public class ClassUtils {
         return sb.toString();
     }
 
-        public static String joinSeparator(Object[] list) {
+    public static String joinSeparator(Object[] list) {
         return joinSeparator(Arrays.asList(list));
     }
 }
